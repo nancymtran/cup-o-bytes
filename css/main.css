@@ -930,13 +930,13 @@ button {
   cursor: pointer;
   position: relative;
   z-index: 0;
-  background: #BFD1FD;
+  background: #899b8d;
   transition: all .2s ease-out, color .2s ease-out;
   font-weight: 300;
 }
 
 .s130 form .inner-form .input-field.second-wrap .btn-search:hover {
-  background: #bfc2fd;
+  background: #637567;
 }
 
 .s130 form .inner-form .input-field.second-wrap .btn-search:focus {
