@@ -21,8 +21,9 @@ $(document).ready(function () {
             </div>`
           )
         })
+        $('#results').remove()
         $('form').after(`
-        <section>
+        <section id='results'>
         ${searchResults}
         </section>
         `)
