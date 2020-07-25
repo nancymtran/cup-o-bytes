@@ -16,12 +16,16 @@ $(document).ready(function () {
         result.forEach((res) => {
           searchResults.push(
             `<div>
-              <div>${res.title}</div>
+              <h4>${res.title}</h4>
               <img src=${res.image} />
             </div>`
           )
         })
-        $('form').after(searchResults)
+        $('form').after(`
+        <section>
+        ${searchResults}
+        </section>
+        `)
       }
     })
   })
