@@ -6,7 +6,7 @@ const fetchAndPopulateSearchResults = () => {
   $.ajax({
     url: `${INGREDIENT_BASE_URL}?apiKey=${API_KEY}&ingredients=${$(
       '#search'
-    ).val()}`,
+    ).val()}&number=50`,
     contentType: 'application/json',
     dataType: 'json',
     success: function (result) {
@@ -15,9 +15,9 @@ const fetchAndPopulateSearchResults = () => {
       result.forEach((res) => {
         searchResults.push(
           `<div>
-                <h4>${res.title}</h4>
-                <img src=${res.image} />
-              </div>`
+            <h4>${res.title}</h4>
+            <img src=${res.image} />
+          </div>`
         )
       })
       $('#results').remove()
