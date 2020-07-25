@@ -822,7 +822,8 @@ button {
   -ms-flex-pack: center;
       justify-content: center;
   font-family: 'Poppins', sans-serif;
-  background: url("../images/Searchs_130.png");
+  /*background: url("../images/Searchs_130.png");*/
+  background: #fffaf0;
   background-position: bottom right;
   background-repeat: no-repeat;
   background-size: 100%;
@@ -891,7 +892,7 @@ button {
   display: flex;
   -ms-flex-align: center;
       align-items: center;
-  background: #d9f1e3;
+  background: #f8f8ff;
 }
 
 .s130 form .inner-form .input-field.first-wrap input {
@@ -929,13 +930,13 @@ button {
   cursor: pointer;
   position: relative;
   z-index: 0;
-  background: #00ad5f;
+  background: #899b8d;
   transition: all .2s ease-out, color .2s ease-out;
   font-weight: 300;
 }
 
 .s130 form .inner-form .input-field.second-wrap .btn-search:hover {
-  background: #009451;
+  background: #637567;
 }
 
 .s130 form .inner-form .input-field.second-wrap .btn-search:focus {
