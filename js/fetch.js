@@ -1,4 +1,4 @@
-const API_KEY = '222ed9a2063b47068b12227c3aa9c19d'
+const API_KEY = '6f737c8cb62f499782e5a0af1a162430'
 const INGREDIENT_BASE_URL =
   'https://api.spoonacular.com/recipes/findByIngredients'
 
@@ -24,10 +24,11 @@ const fetchAndPopulateSearchResults = () => {
       )
       $('#results').remove()
       $('form').after(`
-        <h1>Recipe Results</h1>
+        <h1>Recipe Results
           <section id='results'>
-          ${searchResults.join(' ')}
+          ${searchResults}
           </section>
+          </h1>
           `)
       $('form').remove()
     }
@@ -48,8 +49,10 @@ $(document).on('keypress', function (e) {
 
 function processResults(result, missingIngredientLimit) {
   // filter the results based on missingIngredientLimit
+  const missingIngredientLimitAsNumber =
+    missingIngredientLimit === 'no-limit' ? 0 : Number(missingIngredientLimit)
   const filteredResults = result.filter(
-    (r) => r.missedIngredientCount <= missingIngredientLimit
+    (r) => r.missedIngredientCount <= missingIngredientLimitAsNumber
   )
 
   // group results by number of missed ingredients
@@ -67,53 +70,76 @@ function formatResults(groupedResults, missingIngredientLimit) {
   var i = 0
   while (i <= missingIngredientLimit) {
     if (i == 0 && groupedResults[0]) {
-      searchResults.push(
+      const noIngredients = []
+      noIngredients.push(
         `<div> 
               <h4>Make do with what I've got</h4>
         </div>`
       )
       groupedResults[0].forEach((result) => {
-        searchResults.push(
+        noIngredients.push(
           `<div>
                 <h4>${result.title}</h4>
                 <img src=${result.image} />
            </div>`
         )
       })
+      searchResults.push(
+        `<div className="search-group">${noIngredients.join(' ')}</div>`
+      )
       i++
     } else if (i == 1 && groupedResults[1]) {
-      searchResults.push(
+      const oneIngredient = []
+      oneIngredient.push(
         `<div> 
           <h4>With 1 more ingredient</h4>
         </div>`
       )
       groupedResults[1].forEach((result) => {
-        searchResults.push(
-          <div>
+        oneIngredient.push(
+          `<div>
                 <h4>${result.title}</h4>
                 <img src=${result.image} />
-           </div>
+                <p>Extra ingredient is ${result.missedIngredients[0].name} </p>
+                <p>Likelihood of finding this is ${Math.floor(
+                  Math.random() * 100
+                )}%</p>
+           </div>`
         )
       })
+      searchResults.push(
+        `<div className="search-group">${oneIngredient.join(' ')}</div>`
+      )
       i++
     } else if (groupedResults[i]) {
-      searchResults.push(
+      const otherIngredients = []
+      otherIngredients.push(
         `<div> 
             <h4>With ${i} more ingredients</h4>
         </div>`
       )
       groupedResults[i].forEach((result) => {
-        searchResults.push(
+        otherIngredients.push(
           `<div>
                 <h4>${result.title}</h4>
                 <img src=${result.image} />
+                <p>Extra ingredients are ${result.missedIngredients
+                  .map((missingIngredient) => missingIngredient.name)
+                  .join(', ')} </p>
+                  <p>Likelihood of finding this is ${Math.floor(
+                    Math.random() * 100
+                  )}%</p>
            </div>`
         )
       })
+      searchResults.push(
+        `<div className="search-group">${otherIngredients.join(' ')}</div>`
+      )
       i++
     } else {
       i++
     }
   }
-  return searchResults
+  return searchResults.join(' ')
+  //   return searchResults
 }
