@@ -1,4 +1,4 @@
-const API_KEY = 'ac13c214f9be4fabbcf4a3be38d2ef9d'
+const API_KEY = 'e781fdb09cc4475586aef1f5400b023e'
 const INGREDIENT_BASE_URL =
   'https://api.spoonacular.com/recipes/findByIngredients'
 
@@ -81,10 +81,10 @@ function formatResults(groupedResults, missingIngredientLimit) {
       );
       groupedResults[1].forEach(result => {
         searchResults.push(
-          `<div>
+          <div>
                 <h4>${result.title}</h4>
                 <img src=${result.image} />
-           </div>`
+           </div>
         )
       });
       i++;

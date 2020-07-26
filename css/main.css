@@ -1120,3 +1120,15 @@ select {
   }
 
 }
+
+.resultheader h4 {
+  
+}
+
+.resultHeader img {
+  display: flex; 
+  flex-direction: row;
+  -ms-flex-direction: row;
+  justify-content: center;
+
+}
