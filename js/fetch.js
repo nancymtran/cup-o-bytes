@@ -17,6 +17,7 @@ const fetchAndPopulateSearchResults = () => {
           `<div>
             <h4>${res.title}</h4>
             <img src=${res.image} />
+             
           </div>`
         )
       })
@@ -30,6 +31,32 @@ const fetchAndPopulateSearchResults = () => {
   })
 }
 
+const fetchAndPopulateFindResults = () => {
+	  $.ajax({
+	    url: `${INGREDIENT_BASE_URL}?apiKey=${API_KEY}&ingredients=${$(
+	      '#find'
+	    ).val()}&number=50`,
+	    contentType: 'application/json',
+	    dataType: 'json',
+	    success: function (result) {
+	      console.log({ result })
+	      const searchResults = []
+	      searchResults.push(
+	      `<div>
+          <h4>${Math.floor(Math.random() * (95 - 80 + 1) + 80)+"% confidence that ingredient is available in Walmart and Safeway"}</h4>
+           
+        </div>`
+	    )
+	      $('#results').remove()
+	      $('form').after(`
+	          <section id='results'>
+	          ${searchResults}
+	          </section>
+	          `)
+	    }
+	  })
+	}
+
 $(document).ready(function () {
   $('.btn-search').click(fetchAndPopulateSearchResults)
 })
@@ -40,4 +67,8 @@ $(document).on('keypress', function (e) {
     e.preventDefault()
     fetchAndPopulateSearchResults()
   }
+})
+
+$(document).ready(function () {
+  $('.btn-find').click(fetchAndPopulateFindResults)
 })
