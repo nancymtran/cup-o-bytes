@@ -10,9 +10,10 @@ const fetchAndPopulateSearchResults = () => {
     contentType: 'application/json',
     dataType: 'json',
     success: function (result) {
-      // temporarily hardcoded limit!!
-      const missingIngredientLimit = 2;
-      //////////////////////////////////
+      var missingIngredientLimit = sessionStorage.getItem('maxIngredientsCount');
+      if(!missingIngredientLimit){
+        missingIngredientLimit = 20;
+      }
       const groupedAndFilteredResults = processResults(result, missingIngredientLimit);
       const searchResults = formatResults(groupedAndFilteredResults, missingIngredientLimit);
       $('#results').remove()
