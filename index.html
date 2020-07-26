@@ -39,10 +39,27 @@
           </div>
         </div>
         <span class="info">ex. Apples, Eggs, Chicken, Broccoli</span>
+        <br />
+        <br />
+        <label>
+          Want to limit the number of additional ingredients needed for your
+          recipe?
+          <select id="max-ingredients-dropdown" name="max-ingredients-dropdown">
+            <option value="no-limit" selected data-default>
+              Don't limit additional ingredients
+            </option>
+            <option value="1">Only 1 additional ingredient</option>
+            <option value="2">Only 2 additional ingredients</option>
+            <option value="3">Only 3 additional ingredients</option>
+            <option value="4">Only 4 additional ingredients</option>
+            <option value="5">Only 5 additional ingredients</option>
+          </select>
+        </label>
       </form>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script src="js/fetch.js"></script>
+    <script src="js/main.js"></script>
     <script src="js/extention/choices.js"></script>
   </body>
   <!-- This templates was made by Colorlib (https://colorlib.com) -->
