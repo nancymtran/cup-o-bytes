@@ -1,4 +1,4 @@
-const API_KEY = '222ed9a2063b47068b12227c3aa9c19d'
+const API_KEY = '154325c0fcb9436e9193945a75765a0a'
 const INGREDIENT_BASE_URL =
   'https://api.spoonacular.com/recipes/findByIngredients'
 
@@ -48,8 +48,10 @@ $(document).on('keypress', function (e) {
 
 function processResults(result, missingIngredientLimit) {
   // filter the results based on missingIngredientLimit
+  const missingIngredientLimitAsNumber =
+    missingIngredientLimit === 'no-limit' ? 0 : Number(missingIngredientLimit)
   const filteredResults = result.filter(
-    (r) => r.missedIngredientCount <= missingIngredientLimit
+    (r) => r.missedIngredientCount <= missingIngredientLimitAsNumber
   )
 
   // group results by number of missed ingredients
@@ -92,6 +94,7 @@ function formatResults(groupedResults, missingIngredientLimit) {
           `<div>
                 <h4>${result.title}</h4>
                 <img src=${result.image} />
+                <span>Extra ingredient is ${result.missedIngredients[0].name} </span>
            </div>`
         )
       })
@@ -107,6 +110,9 @@ function formatResults(groupedResults, missingIngredientLimit) {
           `<div>
                 <h4>${result.title}</h4>
                 <img src=${result.image} />
+                <span>Extra ingredients are ${result.missedIngredients
+                  .map((missingIngredient) => missingIngredient.name)
+                  .join(', ')} </span>
            </div>`
         )
       })
