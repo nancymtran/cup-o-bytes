@@ -822,8 +822,8 @@ button {
   -ms-flex-pack: center;
       justify-content: center;
   font-family: 'Poppins', sans-serif;
-  /*background: url("../images/Searchs_130.png");*/
-  background: #fffaf0;
+  background: url("/images/Cup\ O\'\ Bytes\ Web\ Background.svg");
+  /*background: #fffaf0;*/
   background-position: bottom right;
   background-repeat: no-repeat;
   background-size: 100%;
