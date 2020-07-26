@@ -1,6 +1,7 @@
-const API_KEY = '222ed9a2063b47068b12227c3aa9c19d'
+const API_KEY = '47abfbcdf14a4adfadab6fd4322cdcb9'
 const INGREDIENT_BASE_URL =
-  'https://api.spoonacular.com/recipes/findByIngredients'
+  'https://api.spoonacular.com/recipes/findByIngredients';
+const RECIPE_BASE_URL = 'https://api.spoonacular.com/recipes/';
 
 const fetchAndPopulateSearchResults = () => {
   $.ajax({
@@ -54,12 +55,11 @@ function processResults(result, missingIngredientLimit) {
 
   // group results by number of missed ingredients
   let groupedResults = filteredResults.reduce((filteredResult, recipe) => {
-    filteredResult[recipe.missedIngredientCount] = (
-      filteredResult[recipe.missedIngredientCount] || []
-    ).concat(recipe)
-    return filteredResult
-  }, {})
-  return groupedResults
+    filteredResult[recipe.missedIngredientCount] = (filteredResult[recipe.missedIngredientCount] || []).concat(recipe);
+    return filteredResult;
+  }, {});
+
+  return groupedResults;
 }
 
 function formatResults(groupedResults, missingIngredientLimit) {
@@ -71,49 +71,69 @@ function formatResults(groupedResults, missingIngredientLimit) {
         `<div> 
               <h4>Make do with what I've got</h4>
         </div>`
-      )
-      groupedResults[0].forEach((result) => {
-        searchResults.push(
-          `<div>
-                <h4>${result.title}</h4>
-                <img src=${result.image} />
-           </div>`
-        )
-      })
-      i++
-    } else if (i == 1 && groupedResults[1]) {
+      );
+      groupedResults[0].forEach(result => {
+        
+          searchResults.push(
+            `<div>
+                  <h4>${result.title}</h4>
+                  <img src=${result.image} />
+             </div>`
+          )
+      });
+      i++;
+    }
+
+    else if(i==1 && groupedResults[1]){
       searchResults.push(
         `<div> 
           <h4>With 1 more ingredient</h4>
         </div>`
-      )
-      groupedResults[1].forEach((result) => {
-        searchResults.push(
-          <div>
-                <h4>${result.title}</h4>
-                <img src=${result.image} />
-           </div>
-        )
-      })
-      i++
-    } else if (groupedResults[i]) {
+      );
+      groupedResults[1].forEach(result => {
+       
+          searchResults.push(
+            `<div>
+                  <h4>${result.title}</h4>
+                  <img src=${result.image} />
+                  <h5>Missed Ingredient: ${result.missedIngredients[0].name}</h5>
+             </div>`
+          )
+        
+      });
+      i++;
+    }
+
+    else if (groupedResults[i]) {
       searchResults.push(
         `<div> 
             <h4>With ${i} more ingredients</h4>
-        </div>`
-      )
-      groupedResults[i].forEach((result) => {
-        searchResults.push(
-          `<div>
-                <h4>${result.title}</h4>
-                <img src=${result.image} />
-           </div>`
-        )
-      })
-      i++
-    } else {
-      i++
+          </div>`
+      );
+      groupedResults[i].forEach(result => {
+        let missedIngredientArray = result.missedIngredients.map(ingredient => ingredient.name);
+          searchResults.push(
+            `<div>
+                  <h4>${result.title}</h4>
+                  <img src=${result.image} />
+                  <h5>Missed Ingredients: ${missedIngredientArray}</h5>
+
+             </div>`
+          )
+       
+      });
+      i++;
+
     }
   }
   return searchResults
 }
+
+
+function getRecipeLink(id){
+    return $.ajax({
+      url: `${RECIPE_BASE_URL}/${id}/information?apiKey=${API_KEY}`,
+      contentType: 'application/json',
+      dataType: 'json'
+    })
+};
