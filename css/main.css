@@ -1000,7 +1000,7 @@ button {
 
 /* homepage select dropdown */
 select {
-  margin: 1%;
+  margin-top: 1%;
   border: none;
   border-radius: 5px;
   padding: 10px;
