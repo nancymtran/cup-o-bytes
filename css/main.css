@@ -1122,3 +1122,15 @@ select {
     bottom: 0;
   }
 }
+
+.resultheader h4 {
+  
+}
+
+.resultHeader img {
+  display: flex; 
+  flex-direction: row;
+  -ms-flex-direction: row;
+  justify-content: center;
+
+}
