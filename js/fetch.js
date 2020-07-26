@@ -24,8 +24,9 @@ const fetchAndPopulateSearchResults = () => {
       )
       $('#results').remove()
       $('form').after(`
+        <h1>Recipe Results</h1>
           <section id='results'>
-          ${searchResults}
+          ${searchResults.join(' ')}
           </section>
           `)
       $('form').remove()
@@ -99,7 +100,7 @@ function formatResults(groupedResults, missingIngredientLimit) {
       searchResults.push(
         `<div> 
             <h4>With ${i} more ingredients</h4>
-          </div>`
+        </div>`
       )
       groupedResults[i].forEach((result) => {
         searchResults.push(
